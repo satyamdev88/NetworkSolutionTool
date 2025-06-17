@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { PingCheckerService } from '../../services/ping-checker.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ping-checker',
-  imports: [FooterComponent, HeaderComponent,FormsModule, CommonModule],
+  imports: [FooterComponent, HeaderComponent, FormsModule, CommonModule],
   templateUrl: './ping-checker.component.html',
   styleUrl: './ping-checker.component.scss',
 })
@@ -30,17 +31,35 @@ export class PingCheckerComponent {
 
     this.intervalId = setInterval(() => {
       this.sent++;
-
-      this.pingService.pingOnce(this.host).subscribe((res) => {
-        if (res.success) {
-          this.received++;
-          this.times.push(res.time);
-          this.output.push(
-            `Reply from ${res.host}: bytes=32 time=${res.time}ms TTL=116`
-          );
-        } else {
-          this.output.push(`Request timed out.`);
-        }
+      this.pingService.pingOnce(this.host).subscribe({
+        next: (res) => {
+          try {
+            if (res.success) {
+              this.received++;
+              this.times.push(res.time);
+              this.output.push(
+                `Reply from ${res.host}: bytes=32 time=${res.time}ms TTL=116`
+              );
+            } else {
+              this.output.push(`Request timed out.`);
+            }
+          } catch (error) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Ping failed, ',
+              text: 'An error occurred while pinging the host.',
+            });
+          }
+        },
+        error: (err) => {
+          // Optional: handle observable errors here
+          Swal.fire({
+            icon: 'error',
+            title: 'Ping failed ',
+            text: 'An error occurred while pinging the host.',
+          });
+            this.stopPinging()
+        },
       });
     }, 1000);
   }
