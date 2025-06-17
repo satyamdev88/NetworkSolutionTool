@@ -1,0 +1,25 @@
+<app-header></app-header>
+
+<div class="container my-5">
+  <div class="row pt-5">
+    <div class="col-md-4 py-5 text-center shadow rounded">
+      <h2 class="text-center mb-4">MAC Vendor Finder</h2>
+      <input
+        [(ngModel)]="mac"
+        class="form-control text-center"
+        placeholder="Enter MAC Address"
+      />
+      <button (click)="find()" class="btn btn-success mt-3">Find Vendor</button>
+      <p *ngIf="vendor">
+        Vendor: <strong>{{ vendor }}</strong>
+      </p>
+    </div>
+   
+  </div>
+   <div class="row pb-5">
+      <div class="col-md-4">
+        <a class="nav-link text-center bg-primary rounded p-2 text-white"  type="button" href="" style="width: 100%;">Back to home</a>
+      </div>
+    </div>
+</div>
+<app-footer></app-footer>
