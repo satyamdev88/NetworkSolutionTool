@@ -41,8 +41,14 @@
         </form>
         <a class="nav-link text-center bg-primary rounded p-2 text-white"  type="button" href="" style="width: 100%;">Back to home</a>
       </div>
-      <div class="col-md-5 col-sm-12">
-          <div class="d-flex justify-content-center align-items-center">
+     <div class="col-md-5 col-sm-12" *ngIf="!isVisible">
+      <div class="d-flex justify-content-center align-items-center text-center" style="height: 100%; width: 100%;">
+        <p>Output will be displayed here...</p>
+      </div>
+    </div>
+      <div class="col-md-5 col-sm-12 offset-md-1" *ngIf="isVisible">
+          <div class="d-flex justify-content-center align-items-center text-center">
+            <span class="fw-bold">Output :-</span>
              <p *ngIf="vendor"> Vendor: <strong>{{ vendor }}</strong> </p>
           </div>
       </div>
