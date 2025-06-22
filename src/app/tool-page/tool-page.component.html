@@ -4,8 +4,11 @@
 </div>
 <div class="container mb-5 overflow-hidden">
   <div class="row justify-content-start mb-5 ms-5">
-    <div class="col-auto my-md-4 mx-md-4 my-2 mx-0"  *ngFor="let tool of tools">
+  <!--   <div class="col-auto my-md-4 mx-md-4 my-2 mx-0"  *ngFor="let tool of tools">
       <div class="card mx-md-2 mx-0" style="width: 13rem; height: 10rem;"
+        id="CardShadow" (click)="openInNewTab(tool.PageUrl)"> -->
+    <div class="col-auto my-md-4 mx-md-3 my-2 mx-0"  *ngFor="let tool of tools">
+      <div class="card mx-md-1 mx-0" style="width: 13rem; height: 10rem;"
         id="CardShadow" (click)="openInNewTab(tool.PageUrl)">
         <img
           src="{{ tool.ImageUrl }}"
